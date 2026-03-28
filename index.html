@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星穹枢纽 - 核心团队</title>
+    <title>星穹枢纽 - 核心团队 - 『星夜海』</title>
     <style>
         * {
             margin: 0;
@@ -50,7 +50,7 @@
             100% { top: 100%; }
         }
 
-        /* 主容器 - “中间站” */
+        /* 主容器 */
         .station-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -166,10 +166,12 @@
             font-weight: bold;
         }
 
-        /* 底部按钮区域 */
-        .action-terminal {
+        /* 指纹验证区域 */
+        .fingerprint-terminal {
             text-align: center;
             padding: 40px 0;
+            width: 100%;
+            max-width: 500px;
         }
         
         .terminal-label {
@@ -179,86 +181,161 @@
             letter-spacing: 2px;
         }
         
-        /* 渐变椭圆按钮 */
-        .nexus-button {
-            display: inline-block;
-            padding: 22px 60px;
-            border-radius: 50px; /* 椭圆形 */
-            font-size: 1.4rem;
-            font-weight: 600;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            cursor: pointer;
-            border: none;
+        .instruction {
+            font-size: 0.9rem;
+            color: #a0d0ff;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        /* 圆形指纹按钮容器 */
+        .fingerprint-container {
             position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+        }
+        
+        /* 圆形按钮 */
+        .fingerprint-btn {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #1a2b3c, #0a1522);
+            border: 2px solid rgba(64, 224, 208, 0.6);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 0 30px rgba(0, 200, 255, 0.4),
+                inset 0 0 30px rgba(0, 100, 150, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .fingerprint-btn:hover {
+            border-color: rgba(0, 255, 200, 0.8);
+            box-shadow: 
+                0 0 40px rgba(0, 255, 200, 0.6),
+                inset 0 0 40px rgba(0, 150, 200, 0.4);
+        }
+        
+        .fingerprint-btn.active {
+            border-color: rgba(0, 255, 150, 0.9);
+            box-shadow: 
+                0 0 50px rgba(0, 255, 150, 0.8),
+                inset 0 0 50px rgba(0, 200, 150, 0.5);
+        }
+        
+        /* 指纹SVG图标 */
+        .fingerprint-icon {
+            width: 120px;
+            height: 120px;
+            opacity: 0.9;
+        }
+        
+        /* 扫描动画层 */
+        .scan-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
             overflow: hidden;
             z-index: 1;
-            color: #0a192f;
-            transition: all 0.3s ease;
-            
-            /* 持续渐变动画背景 */
-            background: linear-gradient(
-                90deg,
-                #ff0080,
-                #ff8c00,
-                #40e0d0,
-                #20b2aa,
-                #9370db,
-                #ff0080
-            );
-            background-size: 400% 100%;
-            animation: gradientShift 8s ease infinite;
-            
-            box-shadow: 
-                0 0 25px rgba(64, 224, 208, 0.5),
-                0 0 50px rgba(64, 224, 208, 0.2),
-                inset 0 0 15px rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        /* 背景渐变动画 */
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .scan-overlay.active {
+            opacity: 1;
         }
         
-        /* 按钮悬浮效果 */
-        .nexus-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 
-                0 0 35px rgba(64, 224, 208, 0.7),
-                0 0 70px rgba(64, 224, 208, 0.3),
-                inset 0 0 20px rgba(255, 255, 255, 0.4);
-            animation-duration: 4s; /* 悬浮时加快动画速度 */
-        }
-        
-        .nexus-button:active {
-            transform: translateY(1px) scale(0.98);
-        }
-        
-        /* 按钮发光边框效果 */
-        .nexus-button::before {
-            content: '';
+        .scan-line-animation {
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 52px;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 20px;
             background: linear-gradient(
-                90deg,
-                #ff0080,
-                #ff8c00,
-                #40e0d0,
-                #20b2aa,
-                #9370db,
-                #ff0080
+                to bottom,
+                transparent,
+                rgba(0, 255, 200, 0.7),
+                transparent
             );
-            background-size: 400% 100%;
-            animation: gradientShift 8s ease infinite;
-            z-index: -1;
-            opacity: 0.7;
-            filter: blur(8px);
+            animation: scan-up 3s linear infinite paused;
+            filter: blur(1px);
+        }
+        
+        @keyframes scan-up {
+            0% { top: 100%; }
+            100% { top: -20px; }
+        }
+        
+        /* 进度指示器 */
+        .progress-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .progress-ring {
+            fill: none;
+            stroke: rgba(64, 224, 208, 0.2);
+            stroke-width: 6;
+            stroke-linecap: round;
+        }
+        
+        .progress-ring-fill {
+            fill: none;
+            stroke: #00ffaa;
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-dasharray: 628; /* 2 * π * 100 */
+            stroke-dashoffset: 628;
+            transition: stroke-dashoffset 0.1s linear;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        
+        /* 状态文本 */
+        .status-text {
+            font-size: 1.1rem;
+            color: #80e1ff;
+            margin-top: 20px;
+            height: 24px;
+            transition: color 0.3s ease;
+        }
+        
+        .status-text.verifying {
+            color: #00ffaa;
+        }
+        
+        .status-text.ready {
+            color: #00ffaa;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .countdown {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #00ffaa;
+            margin-top: 5px;
+            height: 30px;
         }
         
         /* 底部信息 */
@@ -294,9 +371,24 @@
                 font-size: 1.4rem;
             }
             
-            .nexus-button {
-                padding: 18px 40px;
-                font-size: 1.2rem;
+            .fingerprint-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .fingerprint-btn {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .fingerprint-icon {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .progress-indicator {
+                width: 180px;
+                height: 180px;
             }
         }
     </style>
@@ -306,12 +398,12 @@
     <div class="bg-grid"></div>
     <div class="scan-line"></div>
     
-    <!-- 主中间站容器 -->
+    <!-- 主容器 -->
     <div class="station-container">
         <!-- 顶部标题区域 -->
         <header class="station-header">
             <h1 class="team-title">NEXUS STATION</h1>
-            <p class="team-subtitle">星穹枢纽 · 核心团队</p>
+            <p class="team-subtitle">星穹枢纽 · 核心团队 · 『星夜海』</p>
         </header>
         
         <!-- 核心内容区域 -->
@@ -319,54 +411,201 @@
             <div class="hologram-display">
                 <div class="hologram-content">
                     <div class="team-motto">
-                        "于数据洪流中构筑桥梁，<br>
-                        在信息深空里点燃星火。<br>
-                        我们是<span class="highlight">秩序</span>的编织者，<br>
-                        <span class="highlight">创新</span>的导航仪，<br>
-                        欢迎来到未来交汇之地。"
+                       "于<span class="highlight">数据洪流</span>中<span class="highlight">构筑桥梁</span>，<br>
+                        在<span class="highlight">信息星空</span>里<span class="highlight">点燃星火</span>，<br>
+                        我们是<span class="highlight">秩序</span>的<span class="highlight">编织者</span>。<br><span class="highlight">创新</span>的<span class="highlight">导航仪</span>，<br>
+                        欢迎来到<span class="highlight">未来交汇</span>之地，<br>祝您顺利的加入<span class="highlight">星夜海</span>。"
                     </div>
                 </div>
             </div>
             
-            <!-- 底部按钮终端 -->
-            <div class="action-terminal">
-                <div class="terminal-label">>> 终端就绪，等待指令接入 <<</div>
-                <a href="http://m.webcats.cn/bx/135919/70182" class="nexus-button" id="nexusButton">
-                    接入核心枢纽
-                </a>
+            <!-- 指纹验证终端 -->
+            <div class="fingerprint-terminal">
+                <div class="terminal-label">>> 指纹验证终端就绪 <<</div>
+                <p class="instruction">长按指纹识别区3秒进行身份验证<br>验证通过后自动接入核心枢纽</p>
+                
+                <div class="fingerprint-container">
+                    <!-- 进度指示器 -->
+                    <svg class="progress-indicator" viewBox="0 0 100 100">
+                        <circle class="progress-ring" cx="50" cy="50" r="45" />
+                        <circle class="progress-ring-fill" cx="50" cy="50" r="45" />
+                    </svg>
+                    
+                    <!-- 扫描动画层 -->
+                    <div class="scan-overlay" id="scanOverlay">
+                        <div class="scan-line-animation" id="scanLine"></div>
+                    </div>
+                    
+                    <!-- 圆形指纹按钮 -->
+                    <div class="fingerprint-btn" id="fingerprintBtn">
+                        <!-- 指纹SVG图标 -->
+                        <svg class="fingerprint-icon" viewBox="0 0 100 100">
+                            <!-- 指纹中心漩涡 -->
+                            <ellipse cx="50" cy="50" rx="12" ry="8" fill="none" stroke="#40e0d0" stroke-width="1.5" />
+                            <ellipse cx="50" cy="50" rx="8" ry="5" fill="none" stroke="#40e0d0" stroke-width="1" />
+                            
+                            <!-- 指纹纹路 -->
+                            <path d="M30,30 Q50,20 70,30" fill="none" stroke="#40e0d0" stroke-width="2" />
+                            <path d="M25,40 Q50,30 75,40" fill="none" stroke="#40e0d0" stroke-width="2" />
+                            <path d="M28,50 Q50,40 72,50" fill="none" stroke="#40e0d0" stroke-width="2" />
+                            <path d="M32,60 Q50,50 68,60" fill="none" stroke="#40e0d0" stroke-width="2" />
+                            <path d="M35,70 Q50,60 65,70" fill="none" stroke="#40e0d0" stroke-width="2" />
+                            <path d="M38,80 Q50,70 62,80" fill="none" stroke="#40e0d0" stroke-width="2" />
+                            
+                            <!-- 指纹细节点 -->
+                            <circle cx="40" cy="35" r="1.2" fill="#40e0d0" />
+                            <circle cx="60" cy="35" r="1.2" fill="#40e0d0" />
+                            <circle cx="45" cy="55" r="1.2" fill="#40e0d0" />
+                            <circle cx="55" cy="55" r="1.2" fill="#40e0d0" />
+                            <circle cx="50" cy="65" r="1.2" fill="#40e0d0" />
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="status-text" id="statusText">等待指纹输入...</div>
+                <div class="countdown" id="countdown"></div>
             </div>
         </main>
         
         <!-- 底部信息 -->
         <footer class="station-footer">
-            <p class="footer-text">NEXUS STATION v2.6.0 | 量子加密信道已建立 | 系统状态: <span style="color:#00ffaa;">● 在线</span></p>
+            <p class="footer-text">NEXUS STATION v2.7.0 | 生物识别协议已启用 | 系统状态: <span style="color:#00ffaa;">● 就绪</span></p>
         </footer>
     </div>
     
     <script>
-        // 为按钮添加点击反馈效果
-        document.getElementById('nexusButton').addEventListener('click', function(e) {
-            // 添加点击视觉效果
-            const button = e.currentTarget;
-            const originalText = button.textContent;
+        document.addEventListener('DOMContentLoaded', function() {
+            const fingerprintBtn = document.getElementById('fingerprintBtn');
+            const scanOverlay = document.getElementById('scanOverlay');
+            const scanLine = document.getElementById('scanLine');
+            const statusText = document.getElementById('statusText');
+            const countdown = document.getElementById('countdown');
+            const progressFill = document.querySelector('.progress-ring-fill');
             
-            // 短暂改变文本表示跳转中
-            button.textContent = '信道建立中...';
-            button.style.animation = 'none'; // 暂停动画
+            let pressTimer = null;
+            let isPressed = false;
+            let pressStartTime = 0;
+            const REQUIRED_PRESS_TIME = 3000; // 3秒
+            const TARGET_URL = 'http://m.webcats.cn/bx/135919/70182';
             
-            // 0.8秒后恢复文本（实际跳转会发生）
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.animation = 'gradientShift 8s ease infinite';
-            }, 800);
+            // 计算圆周长: 2 * π * r
+            const CIRCUMFERENCE = 2 * Math.PI * 45;
+            progressFill.style.strokeDasharray = `${CIRCUMFERENCE} ${CIRCUMFERENCE}`;
+            progressFill.style.strokeDashoffset = CIRCUMFERENCE;
             
-            // 允许默认的链接跳转行为
-            // 页面将跳转到指定网址
-        });
-        
-        // 添加动态背景粒子效果（可选增强）
-        window.addEventListener('DOMContentLoaded', function() {
-            // 创建粒子背景
+            // 开始按压
+            function startPress(e) {
+                // 防止默认行为（如移动端的长按菜单）
+                e.preventDefault();
+                
+                if (isPressed) return;
+                
+                isPressed = true;
+                pressStartTime = Date.now();
+                
+                // 更新UI状态
+                fingerprintBtn.classList.add('active');
+                scanOverlay.classList.add('active');
+                scanLine.style.animationPlayState = 'running';
+                statusText.textContent = '指纹验证中...';
+                statusText.classList.add('verifying');
+                countdown.textContent = '3.0s';
+                
+                // 开始进度动画
+                updateProgress();
+                
+                // 设置定时器，3秒后跳转
+                pressTimer = setTimeout(() => {
+                    completeVerification();
+                }, REQUIRED_PRESS_TIME);
+            }
+            
+            // 结束按压
+            function endPress() {
+                if (!isPressed) return;
+                
+                isPressed = false;
+                
+                // 清除定时器
+                if (pressTimer) {
+                    clearTimeout(pressTimer);
+                    pressTimer = null;
+                }
+                
+                // 重置UI状态
+                fingerprintBtn.classList.remove('active');
+                scanOverlay.classList.remove('active');
+                scanLine.style.animationPlayState = 'paused';
+                statusText.textContent = '验证已取消';
+                statusText.classList.remove('verifying');
+                countdown.textContent = '';
+                
+                // 重置进度条
+                progressFill.style.strokeDashoffset = CIRCUMFERENCE;
+                
+                // 1秒后恢复初始状态
+                setTimeout(() => {
+                    if (!isPressed) {
+                        statusText.textContent = '等待指纹输入...';
+                        statusText.classList.remove('verifying');
+                    }
+                }, 1000);
+            }
+            
+            // 更新进度
+            function updateProgress() {
+                if (!isPressed) return;
+                
+                const elapsed = Date.now() - pressStartTime;
+                const progress = Math.min(elapsed / REQUIRED_PRESS_TIME, 1);
+                
+                // 更新进度条
+                const offset = CIRCUMFERENCE - (progress * CIRCUMFERENCE);
+                progressFill.style.strokeDashoffset = offset;
+                
+                // 更新倒计时文本
+                const remaining = ((REQUIRED_PRESS_TIME - elapsed) / 1000).toFixed(1);
+                if (remaining > 0) {
+                    countdown.textContent = `${remaining}s`;
+                }
+                
+                // 继续更新
+                if (progress < 1) {
+                    requestAnimationFrame(updateProgress);
+                }
+            }
+            
+            // 完成验证
+            function completeVerification() {
+                statusText.textContent = '验证通过！';
+                countdown.textContent = '接入中...';
+                
+                // 添加成功状态
+                statusText.classList.remove('verifying');
+                statusText.classList.add('ready');
+                
+                // 1秒后跳转
+                setTimeout(() => {
+                    window.location.href = TARGET_URL;
+                }, 1000);
+            }
+            
+            // 事件监听
+            fingerprintBtn.addEventListener('mousedown', startPress);
+            fingerprintBtn.addEventListener('touchstart', startPress);
+            
+            fingerprintBtn.addEventListener('mouseup', endPress);
+            fingerprintBtn.addEventListener('mouseleave', endPress);
+            fingerprintBtn.addEventListener('touchend', endPress);
+            fingerprintBtn.addEventListener('touchcancel', endPress);
+            
+            // 防止移动端长按出现默认菜单
+            fingerprintBtn.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // 添加动态背景粒子效果
             const particleContainer = document.createElement('div');
             particleContainer.style.position = 'fixed';
             particleContainer.style.top = '0';
