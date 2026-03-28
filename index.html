@@ -3,1220 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星夜海军团 - 招新主页</title>
+    <title>星穹枢纽 - 核心团队</title>
     <style>
-        :root {
-            --primary-color: #1a237e;
-            --secondary-color: #0d47a1;
-            --accent-color: #2962ff;
-            --website-btn-color: #4caf50;
-            --website-btn-color2: #ff9800;
-            --sticker-btn-color: #7c4dff;
-            --watermark-btn-color: #2196f3;
-            --doubao-btn-color: #e91e63;
-            --music-btn-color: #9c27b0;
-            --text-light: #ffffff;
-            --text-secondary: #bbdefb;
-            --gradient-blue: linear-gradient(135deg, #1a237e, #0d47a1, #1565c0);
-            --gradient-dark: linear-gradient(135deg, #0d47a1, #000000);
-            --gradient-colorful: linear-gradient(90deg, #ff4081, #7c4dff, #2979ff, #00e5ff, #76ff03, #ffd600);
-            --card-bg: rgba(255, 255, 255, 0.1);
-            --card-border: rgba(255, 255, 255, 0.2);
-            --shadow-color: rgba(0, 0, 0, 0.3);
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
         
         body {
-            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #0c1b2d 50%, #121212 100%);
+            color: #e0f7ff;
             min-height: 100vh;
-            color: var(--text-light);
             overflow-x: hidden;
-            position: relative;
-            background: #0a0e2a;
         }
-        
-        /* 背景图片与玻璃效果 */
-        #background-container {
+
+        /* 科技感背景元素 */
+        .bg-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
-            overflow: hidden;
-        }
-        
-        .background-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-        
-        /* 优化的玻璃破碎效果层 */
-        #glass-effect-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            background-image: 
+                linear-gradient(rgba(10, 150, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(10, 150, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
             z-index: -1;
-            overflow: hidden;
-            mix-blend-mode: overlay;
-            pointer-events: none;
         }
         
-        .glass-shard {
-            position: absolute;
-            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-            border: 1px solid rgba(255,255,255,0.1);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            opacity: 0.5;
-            filter: blur(0.5px);
-            backdrop-filter: blur(2px);
-            will-change: transform, opacity;
-        }
-        
-        /* 星空背景 */
-        .stars {
+        .scan-line {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.6), transparent);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+            animation: scan 3s linear infinite;
+            z-index: -1;
         }
         
-        .star {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
         }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-        
-        /* 优化启动页样式 */
-        #splash-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+
+        /* 主容器 - “中间站” */
+        .station-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            color: var(--text-light);
-            font-family: 'Microsoft YaHei', sans-serif;
-            transition: opacity 0.8s ease;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(41, 98, 255, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 80% 70%, rgba(124, 77, 255, 0.1) 0%, transparent 20%),
-                linear-gradient(135deg, rgba(10, 14, 42, 0.9), rgba(26, 35, 126, 0.8));
-            backdrop-filter: blur(3px);
+            position: relative;
+        }
+
+        /* 顶部导航/标识 */
+        .station-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 20px;
+            border-bottom: 1px solid rgba(64, 224, 208, 0.3);
         }
         
-        #splash-screen.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .splash-logo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 30px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 20px rgba(41, 98, 255, 0.6);
-            animation: pulse 2s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            0% { 
-                transform: scale(1); 
-                box-shadow: 0 0 20px rgba(41, 98, 255, 0.6);
-            }
-            100% { 
-                transform: scale(1.05); 
-                box-shadow: 0 0 30px rgba(41, 98, 255, 0.8);
-            }
-        }
-        
-        #splash-screen h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(to right, #ffffff, #bbdefb);
+        .team-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00e5ff, #00ffaa, #00e5ff);
+            background-size: 200% auto;
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+            margin-bottom: 10px;
+            text-transform: uppercase;
             letter-spacing: 2px;
         }
         
-        #splash-screen p {
-            font-size: 1.3rem;
-            margin-bottom: 40px;
-            color: var(--text-secondary);
+        @keyframes shine {
+            to { background-position: 200% center; }
         }
         
-        .author-container {
+        .team-subtitle {
+            font-size: 1.2rem;
+            color: #a0e7ff;
+            letter-spacing: 4px;
+            font-weight: 300;
+        }
+
+        /* 核心内容区域 */
+        .core-content {
+            flex: 1;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-            border: 2px solid white;
-        }
-        
-        .author-name {
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-        
-        #progress-container {
-            width: 80%;
-            max-width: 400px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        #progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #2979ff, #00e5ff, #76ff03);
-            border-radius: 6px;
-            transition: width 0.3s ease;
-        }
-        
-        #progress-text {
-            color: white;
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-        
-        /* 弹窗样式 */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
             justify-content: center;
-            align-items: center;
-            z-index: 10001;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
+            padding: 40px 0;
         }
         
-        .modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        /* 彩虹渐变边框容器 */
-        .modal-border-container {
-            position: relative;
-            background: linear-gradient(90deg, #ff4081, #7c4dff, #2979ff, #00e5ff, #76ff03, #ffd600, #ff4081);
-            background-size: 400% 100%;
+        .hologram-display {
+            width: 80%;
+            max-width: 800px;
+            height: 400px;
+            background: rgba(20, 30, 48, 0.7);
             border-radius: 20px;
-            padding: 3px;
-            animation: rainbow-border 6s linear infinite;
-            max-width: 650px;
-            width: 90%;
-            margin: 0 auto;
+            border: 1px solid rgba(0, 200, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px rgba(0, 150, 255, 0.3),
+                inset 0 0 40px rgba(0, 200, 255, 0.1);
+            margin-bottom: 60px;
         }
         
-        @keyframes rainbow-border {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 400% 50%; }
+        /* 全息投影效果 */
+        .hologram-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                rgba(0, 255, 255, 0.1),
+                transparent 30%
+            );
+            animation: rotate 10s linear infinite;
         }
         
-        .modal-content {
-            background: linear-gradient(135deg, rgba(26, 35, 126, 0.9), rgba(13, 71, 161, 0.9));
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hologram-content {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-height: 80vh;
-            border-radius: 17px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            overflow-y: auto;
-            transform: translateY(20px);
-            transition: transform 0.5s ease;
-        }
-        
-        .modal.active .modal-content {
-            transform: translateY(0);
-        }
-        
-        .modal-header {
+            height: 100%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            justify-content: center;
+            z-index: 2;
+            padding: 40px;
         }
         
-        .modal-title {
-            font-size: 1.6rem;
-            color: white;
+        .team-motto {
+            font-size: 1.8rem;
+            text-align: center;
+            line-height: 1.6;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.7);
         }
         
-        .modal-body {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: var(--text-secondary);
+        .team-motto .highlight {
+            color: #00ffaa;
+            font-weight: bold;
+        }
+
+        /* 底部按钮区域 */
+        .action-terminal {
+            text-align: center;
+            padding: 40px 0;
         }
         
-        .policy-content, .activity-content {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--accent-color);
-        }
-        
-        .policy-section {
-            margin-bottom: 15px;
-        }
-        
-        .policy-section h3 {
-            color: white;
-            margin-bottom: 8px;
+        .terminal-label {
             font-size: 1.1rem;
-        }
-        
-        .policy-list {
-            padding-left: 20px;
-            margin-bottom: 10px;
-        }
-        
-        .policy-list li {
-            margin-bottom: 6px;
-        }
-        
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-        }
-        
-        .checkbox-container input {
-            width: 20px;
-            height: 20px;
-            margin-right: 15px;
-        }
-        
-        .modal-buttons {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 15px;
-        }
-        
-        .modal-btn {
-            padding: 10px 25px;
-            background: linear-gradient(135deg, var(--accent-color), #1e88e5);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-        
-        .modal-btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-        }
-        
-        .modal-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #1e88e5, #1565c0);
-            transform: translateY(-3px);
-        }
-        
-        /* 主内容 */
-        .content {
-            position: relative;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .content.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* 为所有主内容添加更高的z-index确保在最上层 */
-        .header-container,
-        .teams-container,
-        .videos-container,
-        .join-section {
-            position: relative;
-            z-index: 10;
-        }
-        
-        .header-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .header-logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
+            color: #80e1ff;
             margin-bottom: 20px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 25px rgba(41, 98, 255, 0.7);
+            letter-spacing: 2px;
         }
         
-        .header-title {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            background: var(--gradient-dark);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 900;
-            letter-spacing: 3px;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-        
-        .welcome-text {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            background: var(--gradient-colorful);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: bold;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        /* 九宫格分队 - 添加流动边框 */
-        .teams-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            width: 100%;
-            max-width: 900px;
-            margin-bottom: 40px;
-        }
-        
-        .team-card {
-            position: relative;
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-            border: 1px solid var(--card-border);
-            box-shadow: 0 8px 16px var(--shadow-color);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 180px;
-            overflow: hidden;
-        }
-        
-        /* 流动边框效果 */
-        .team-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 12px;
-            padding: 2px;
-            background: linear-gradient(90deg, 
-                #ff4081, #7c4dff, #2979ff, #00e5ff, #76ff03, #ffd600, #ff4081);
-            background-size: 300% 300%;
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: borderFlow 4s linear infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .team-card:hover::before {
-            opacity: 1;
-        }
-        
-        @keyframes borderFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 300% 50%; }
-        }
-        
-        .team-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(41, 98, 255, 0.5);
-        }
-        
-        .team-number {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #bbdefb;
-            margin-bottom: 8px;
-        }
-        
-        .team-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 10px;
-        }
-        
-        .team-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-        
-        .team-leader {
-            font-size: 0.9rem;
-            color: #ffd600;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-        
-        /* 视频区域 - 添加流动边框 */
-        .videos-container {
-            width: 100%;
-            max-width: 600px;
-            margin-bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .video-container {
-            position: relative;
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* 视频流动边框效果 */
-        .video-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 12px;
-            padding: 2px;
-            background: linear-gradient(90deg, 
-                #ff4081, #7c4dff, #2979ff, #00e5ff, #76ff03, #ffd600, #ff4081);
-            background-size: 300% 300%;
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: borderFlow 4s linear infinite;
-            opacity: 0.8;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .recruit-video {
-            width: 100%;
-            height: auto;
-            display: block;
-            position: relative;
-            z-index: 0;
-        }
-        
-        .video-title {
-            text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #bbdefb;
-            font-weight: bold;
-        }
-        
-        /* 按钮区域 - 高级椭圆形按钮设计 */
-        .join-section {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 40px;
-            gap: 15px;
-        }
-        
-        /* 高级椭圆形按钮样式 */
-        .join-btn {
-            position: relative;
-            display: block;
-            width: 100%;
-            padding: 20px 18px;
-            color: white;
-            border: none;
-            border-radius: 50px; /* 椭圆形设计 */
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            font-weight: bold;
-            text-align: center;
+        /* 渐变椭圆按钮 */
+        .nexus-button {
+            display: inline-block;
+            padding: 22px 60px;
+            border-radius: 50px; /* 椭圆形 */
+            font-size: 1.4rem;
+            font-weight: 600;
             text-decoration: none;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            border: none;
+            position: relative;
             overflow: hidden;
             z-index: 1;
+            color: #0a192f;
+            transition: all 0.3s ease;
+            
+            /* 持续渐变动画背景 */
+            background: linear-gradient(
+                90deg,
+                #ff0080,
+                #ff8c00,
+                #40e0d0,
+                #20b2aa,
+                #9370db,
+                #ff0080
+            );
+            background-size: 400% 100%;
+            animation: gradientShift 8s ease infinite;
+            
+            box-shadow: 
+                0 0 25px rgba(64, 224, 208, 0.5),
+                0 0 50px rgba(64, 224, 208, 0.2),
+                inset 0 0 15px rgba(255, 255, 255, 0.3);
         }
         
-        /* 彩虹渐变背景 */
-        .join-btn::before {
+        /* 背景渐变动画 */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* 按钮悬浮效果 */
+        .nexus-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 0 35px rgba(64, 224, 208, 0.7),
+                0 0 70px rgba(64, 224, 208, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.4);
+            animation-duration: 4s; /* 悬浮时加快动画速度 */
+        }
+        
+        .nexus-button:active {
+            transform: translateY(1px) scale(0.98);
+        }
+        
+        /* 按钮发光边框效果 */
+        .nexus-button::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, 
-                #ff4081, #7c4dff, #2979ff, #00e5ff, #76ff03, #ffd600, #ff4081);
-            background-size: 300% 300%;
-            border-radius: 50px;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 52px;
+            background: linear-gradient(
+                90deg,
+                #ff0080,
+                #ff8c00,
+                #40e0d0,
+                #20b2aa,
+                #9370db,
+                #ff0080
+            );
+            background-size: 400% 100%;
+            animation: gradientShift 8s ease infinite;
             z-index: -1;
-            animation: borderFlow 4s linear infinite;
+            opacity: 0.7;
+            filter: blur(8px);
         }
         
-        /* 流动边框效果 */
-        .join-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50px;
-            padding: 3px;
-            background: linear-gradient(90deg, 
-                #ff4081, #7c4dff, #2979ff, #00e5ff, #76ff03, #ffd600, #ff4081);
-            background-size: 300% 300%;
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: borderFlow 4s linear infinite;
-            opacity: 1;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .join-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
-        }
-        
-        /* 按钮图标样式 */
-        .join-btn i {
-            margin-right: 10px;
-            font-size: 1.3rem;
-        }
-        
-        .qq-hint {
-            font-size: 0.9rem;
-            color: #bbdefb;
+        /* 底部信息 */
+        .station-footer {
             text-align: center;
-            margin-top: 10px;
-            line-height: 1.5;
+            padding: 30px 0 20px;
+            color: #6688aa;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(64, 224, 208, 0.2);
+        }
+        
+        .footer-text {
+            opacity: 0.7;
         }
         
         /* 响应式设计 */
         @media (max-width: 768px) {
-            .teams-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
-            
-            .header-title {
+            .team-title {
                 font-size: 2.5rem;
             }
             
-            .welcome-text {
-                font-size: 1.5rem;
+            .team-subtitle {
+                font-size: 1rem;
+                letter-spacing: 2px;
             }
             
-            .team-card {
-                padding: 15px;
-                min-height: 160px;
+            .hologram-display {
+                width: 95%;
+                height: 300px;
             }
             
-            .modal-border-container {
-                max-width: 95%;
-            }
-            
-            .modal-title {
+            .team-motto {
                 font-size: 1.4rem;
             }
             
-            .modal-content {
-                padding: 15px;
-            }
-            
-            .join-btn {
-                padding: 18px 16px;
-                font-size: 1.1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .teams-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .header-title {
-                font-size: 2rem;
-            }
-            
-            .welcome-text {
-                font-size: 1.3rem;
-            }
-            
-            .modal-border-container {
-                max-width: 98%;
-            }
-            
-            .join-btn {
-                padding: 16px 14px;
-                font-size: 1rem;
-            }
-        }
-        
-        /* 性能优化：只在需要时运行动画 */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+            .nexus-button {
+                padding: 18px 40px;
+                font-size: 1.2rem;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- 背景图片容器 - 使用链接图片 -->
-    <div id="background-container">
-        <img class="background-image" src="https://imgchr.com/i/pe1nw5R" alt="星夜海背景" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiB2aWV3Qm94PSIwIDAgMTkyMCAxMDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxOTIwIiBoZWlnaHQ9IjEwODAiIGZpbGw9InVybCgjaGV4X2JnX2dyYWQpIi8+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJoZXhfYmdfZ3JhZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMTkyMCIgeTI9IjEwODAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAuMSIgc3RvcC1jb2xvcj0iIzBDMEUyQSIvPjxzdG9wIG9mZnNldD0iMC41IiBzdG9wLWNvbG9yPSIjMEEwRDI2Ii8+PHN0b3Agb2Zmc2V0PSIwLjkiIHN0b3AtY29sb3I9IiMwMDAwMDAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48L3N2Zz4='">
-    </div>
+    <!-- 科技感背景元素 -->
+    <div class="bg-grid"></div>
+    <div class="scan-line"></div>
     
-    <!-- 玻璃破碎背景容器 -->
-    <div id="glass-effect-container"></div>
-    
-    <!-- 星空背景 -->
-    <div class="stars" id="stars"></div>
-    
-    <!-- 启动页 -->
-    <div id="splash-screen">
-        <img class="splash-logo" src="https://imgchr.com/i/pe1nWad" alt="星夜海头像" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNzUiIGN5PSI3NSIgcj0iNzUiIGZpbGw9InVybCgjaGV4X2dyYWQpIi8+PHBhdGggZD0iTTQ1IDQ1TDEwNSAxMDVNNDUgMTA1TDEwNSA0NSIgc3Ryb2tlPSIjRkZGIiBzdHJva2Utd2lkdGg9IjgiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImhleF9ncmFkIiB4MT0iMCIgeTE9IjAiIHgyPSIxNTAiIHkyPSI1MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMC4yIiBzdG9wLWNvbG9yPSIjMUU4OEU1Ii8+PHN0b3Agb2Zmc2V0PSIwLjgiIHN0b3AtY29sb3I9IiMyQzNFNTAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48L3N2Zz4='">
-        <h1>星夜海军团</h1>
-        <p>龙岛异兽顶级团队</p>
+    <!-- 主中间站容器 -->
+    <div class="station-container">
+        <!-- 顶部标题区域 -->
+        <header class="station-header">
+            <h1 class="team-title">NEXUS STATION</h1>
+            <p class="team-subtitle">星穹枢纽 · 核心团队</p>
+        </header>
         
-        <div class="author-container">
-            <img class="author-avatar" src="https://imgchr.com/i/pe1nWad" alt="作者头像" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIzMCIgZmlsbD0iIzI5NjJGRiIvPjxwYXRoIGQ9Ik0yMCAyMEw0MCA0ME0yMCA0MEw0MCAyMCIgc3Ryb2tlPSIjRkZGIiBzdHJva2Utd2lkdGg9IjQiLz48L3N2Zz4='">
-            <div class="author-name">相信</div>
-        </div>
-        
-        <div id="progress-container">
-            <div id="progress-bar"></div>
-        </div>
-        <div id="progress-text">0%</div>
-    </div>
-    
-    <!-- 群内政策弹窗 -->
-    <div class="modal" id="policy-modal">
-        <div class="modal-border-container">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">星夜海军团群内政策</h2>
-                </div>
-                <div class="modal-body">
-                    <div class="policy-content">
-                        <div class="policy-section">
-                            <h3>第一章 总则</h3>
-                            <p><strong>第一条 宗旨</strong><br>为维护军团（社群）良好氛围，保障成员友好交流、团结协作，特制定本规则。本规则旨在明确行为边界，倡导文明、理性、互相尊重的沟通文化。</p>
-                            <p><strong>第二条 适用范围</strong><br>本规则适用于军团内所有沟通平台（如群聊、论坛、语音频道等）及一切与军团相关的线上、线下活动。所有军团成员均须遵守。</p>
-                            <p><strong>第三条 核心原则</strong><br>文明交流，团结友爱，顾全大局，共同维护军团荣誉。</p>
-                        </div>
-                        
-                        <div class="policy-section">
-                            <h3>第二章 禁止行为与处罚标准</h3>
-                            <p><strong>第四条 严禁行为</strong><br>以下行为一经核实，将根据情节严重程度予以处罚：</p>
-                            <ul class="policy-list">
-                                <li><strong>发布低俗内容：</strong> 包括但不限于传播色情、露骨、性暗示或其他令人不适的文字、图片、视频、链接等。</li>
-                                <li><strong>辱骂与人身攻击：</strong> 使用侮辱性、歧视性、诽谤性语言攻击其他成员，包括公开嘲讽、恶意贬低等。</li>
-                                <li><strong>恶意刷屏：</strong> 在短时间内重复发送相同或相似无意义内容，严重干扰正常交流秩序。</li>
-                                <li><strong>挑起内讧与恶意冲突：</strong> 包括但不限于：<br>· 无故挑衅、指责、散布针对其他成员或管理层的负面言论。<br>· 拉帮结派，制造对立，破坏团队团结。<br>· 在争议中故意歪曲事实，激化矛盾。</li>
-                            </ul>
-                            <p><strong>第五条 处罚措施</strong><br>处罚分为：警告、禁言、暂停部分权限、移除出军团。管理团队将根据违规次数、情节轻重及事后态度，执行相应处罚。</p>
-                        </div>
-                        
-                        <div class="policy-section">
-                            <h3>第三章 冲突处理特别条款</h3>
-                            <p><strong>第六条 处理原则</strong><br>对于成员间发生的冲突，管理团队将遵循 "分清责任，区别对待，鼓励和解" 的原则进行处理。如果和解将不予处罚。</p>
-                        </div>
-                        
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="policy-checkbox">
-                            <label for="policy-checkbox">我已阅读并同意遵守以上群内政策</label>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-buttons">
-                        <button class="modal-btn" id="policy-confirm-btn" disabled>确认并继续</button>
+        <!-- 核心内容区域 -->
+        <main class="core-content">
+            <div class="hologram-display">
+                <div class="hologram-content">
+                    <div class="team-motto">
+                        "于数据洪流中构筑桥梁，<br>
+                        在信息深空里点燃星火。<br>
+                        我们是<span class="highlight">秩序</span>的编织者，<br>
+                        <span class="highlight">创新</span>的导航仪，<br>
+                        欢迎来到未来交汇之地。"
                     </div>
                 </div>
             </div>
-        </div>
+            
+            <!-- 底部按钮终端 -->
+            <div class="action-terminal">
+                <div class="terminal-label">>> 终端就绪，等待指令接入 <<</div>
+                <a href="http://m.webcats.cn/bx/135919/70182" class="nexus-button" id="nexusButton">
+                    接入核心枢纽
+                </a>
+            </div>
+        </main>
+        
+        <!-- 底部信息 -->
+        <footer class="station-footer">
+            <p class="footer-text">NEXUS STATION v2.6.0 | 量子加密信道已建立 | 系统状态: <span style="color:#00ffaa;">● 在线</span></p>
+        </footer>
     </div>
     
-    <!-- 活动通知弹窗 -->
-    <div class="modal" id="activity-modal">
-        <div class="modal-border-container">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">开服后与友军的活动通知</h2>
-                </div>
-                <div class="modal-body">
-                    <div class="activity-content">
-                        <p>从今天起【星夜海】军团与【墨龙 凌霄】军团手游上线之后将会开启【友军训练战】</p>
-                        <p><strong>规则：</strong>（活动时间：出手游的第6周）</p>
-                        <p><strong>注意：</strong>参赛人员必须是远古龙！并且拉复活的钱双方共出，并且打架期间不能使用技能只能使用普通的咬</p>
-                        <ol style="margin-left: 20px; margin-top: 15px;">
-                            <li>双方各出一个人与对方单挑活着则赢死者则输（切记友谊第1比赛第2！）</li>
-                            <li>所有普通成员打完之后便会有各个分队的队长继续训练（跟第1条一样）</li>
-                            <li>最后由各个团的副团长和团长相互配合攻打对方的团长和副团长（赢的军团将会获得6666龙币）</li>
-                        </ol>
-                    </div>
-                    
-                    <div class="modal-buttons">
-                        <button class="modal-btn" id="activity-confirm-btn">确认</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 主内容 -->
-    <div class="content" id="main-content">
-        <div class="header-container">
-            <img class="header-logo" src="https://imgchr.com/i/pe1nWad" alt="星夜海军团头像" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNjAiIGZpbGw9InVybCgjaGV4X2dyYWQyKSIvPjxwYXRoIGQ9Ik0zMCAzMEw5MCA5ME0zMCA5MEw5MCAzMCIgc3Ryb2tlPSIjRkZGIiBzdHJva2Utd2lkdGg9IjgiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImhleF9ncmFkMiIgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMTIwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwLjIiIHN0b3AtY29sb3I9IiMxQTIzN0UiLz48c3RvcCBvZmZzZXQ9IjAuOCIgc3RvcC1jb2xvcj0iIzAwMDAwMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg=='">
-            <h1 class="header-title">星夜海</h1>
-            <div class="welcome-text">欢迎你的加入</div>
-        </div>
-        
-        <!-- 九宫格分队 -->
-        <div class="teams-container">
-            <div class="team-card">
-                <div>
-                    <div class="team-number">一分队</div>
-                    <div class="team-name">战斗先锋</div>
-                    <div class="team-desc">职责：打架<br>主玩：霸王龙</div>
-                </div>
-                <div class="team-leader">队长：楠枝小瑄</div>
-            </div>
-            
-            <div class="team-card">
-                <div>
-                    <div class="team-number">二分队</div>
-                    <div class="team-name">任务执行</div>
-                    <div class="team-desc">职责：执行任务（随机不固定）<br>主玩：霸王龙、南方盗龙</div>
-                </div>
-                <div class="team-leader">队长：大蓉蓉</div>
-            </div>
-            
-            <div class="team-card">
-                <div>
-                    <div class="team-number">三分队</div>
-                    <div class="team-name">海军</div>
-                    <div class="team-desc">职责：海军作战<br>主玩：鳄鱼</div>
-                </div>
-                <div class="team-leader">队长：秋叶</div>
-            </div>
-            
-            <div class="team-card">
-                <div>
-                    <div class="team-number">四分队</div>
-                    <div class="team-name">情报组</div>
-                    <div class="team-desc">职责：情报收集<br>主玩：翼龙</div>
-                </div>
-                <div class="team-leader">队长：沐白</div>
-            </div>
-            
-            <div class="team-card">
-                <div>
-                    <div class="team-number">五分队</div>
-                    <div class="team-name">暗杀组</div>
-                    <div class="team-desc">职责：暗杀<br>主玩：霸王龙</div>
-                </div>
-                <div class="team-leader">队长：末日守望者</div>
-            </div>
-            
-            <div class="team-card">
-                <div>
-                    <div class="team-number">六分队</div>
-                    <div class="team-name">辅助支援</div>
-                    <div class="team-desc">职责：辅助（拉龙恢复等）<br>主玩：母龙</div>
-                </div>
-                <div class="team-leader">队长：麻辣兔头</div>
-            </div>
-            
-            <div class="team-card">
-                <div>
-                    <div class="team-number">七分队</div>
-                    <div class="team-name">战斗精英</div>
-                    <div class="team-desc">职责：打架<br>主玩：霸王龙</div>
-                </div>
-                <div class="team-leader">队长：墨离</div>
-            </div>
-            
-            <div class="team-card">
-                <div>
-                    <div class="team-number">八分队</div>
-                    <div class="team-name">战斗主力</div>
-                    <div class="team-desc">职责：打架<br>主玩：霸王龙</div>
-                </div>
-                <div class="team-leader">队长：静静大王</div>
-            </div>
-            
-            <div class="team-card">
-                <div>
-                    <div class="team-number">九分队</div>
-                    <div class="team-name">重型战斗</div>
-                    <div class="team-desc">职责：打架<br>主玩：南巨</div>
-                </div>
-                <div class="team-leader">队长：説</div>
-            </div>
-        </div>
-        
-        <!-- 视频区域 -->
-        <div class="videos-container">
-            <div>
-                <div class="video-title">军团招新宣传视频</div>
-                <div class="video-container">
-                    <video class="recruit-video" controls poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjMzOCIgdmlld0JveD0iMCAwIDYwMCAzMzgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMzgiIGZpbGw9IiMwRDBFMkEiLz48cGF0aCBkPSJNMjQwIDE2OUwzNDAgMTY5TDMwMCAyMDlMMjQwIDIwOVoiIGZpbGw9IiMyOTYyRkYiLz48dGV4dCB4PSIzMDAiIHk9IjE4MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9IjcuNXB4Ij7nvqTniYg8L3RleHQ+PC9zdmc+">
-                        <source src="video.mp4" type="video/mp4">
-                        您的浏览器不支持视频标签。
-                    </video>
-                </div>
-            </div>
-            
-            <div>
-                <div class="video-title">军团战斗集锦</div>
-                <div class="video-container">
-                    <video class="recruit-video" controls poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjMzOCIgdmlld0JveD0iMCAwIDYwMCAzMzgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMzgiIGZpbGw9IiMwRDBFMkEiLz48Y2lyY2xlIGN4PSIzMDAiIGN5PSIxNjkiIHI9IjUwIiBmaWxsPSIjMjk2MkZGIi8+PHRleHQgeD0iMzAwIiB5PSIxODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSI3LjVweCI+576k54mIPC90ZXh0Pjwvc3ZnPg==">
-                        <source src="png.mp4" type="video/mp4">
-                        您的浏览器不支持视频标签。
-                    </video>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 按钮区域 - 高级椭圆形设计 -->
-        <div class="join-section">
-            <a href="mqqapi://card/show_pslcard?src_type=internal&version=1&uin=461528783&card_type=group&source=qrcode" class="join-btn" id="joinQQGroup">
-                <i class="fas fa-users"></i> 加入星夜海军团QQ群
-            </a>
-            
-            <a href="https://www.longdaoyishou.com/" target="_blank" class="join-btn" id="dragonIslandBtn">
-                <i class="fas fa-dragon"></i> 龙岛异兽官网
-            </a>
-            
-            <a href="https://theislegame.com/" target="_blank" class="join-btn" id="giantIslandBtn">
-                <i class="fas fa-mountain"></i> 巨兽岛官网
-            </a>
-            
-            <a href="http://m.webcats.cn/bx/135919/69810" target="_blank" class="join-btn" id="stickerGeneratorBtn">
-                <i class="fas fa-smile"></i> 表情包生成器
-            </a>
-            
-            <a href="http://m.webcats.cn/bx/135919/69813" target="_blank" class="join-btn" id="doubaoWatermarkBtn">
-                <i class="fas fa-film"></i> 豆包视频去水印
-            </a>
-            
-            <a href="http://m.webcats.cn/bx/135919/69814" target="_blank" class="join-btn" id="watermarkMakerBtn">
-                <i class="fas fa-water"></i> 水印制作
-            </a>
-            
-            <!-- 音乐选择按钮 -->
-            <a href="https://music.163.com/" target="_blank" class="join-btn" id="musicSelectBtn">
-                <i class="fas fa-music"></i> 选择音乐
-            </a>
-            
-            <p class="qq-hint">若QQ跳转失败，请手动输入QQ号：461528783 感谢配合 ε٩(๑> ₃ <)۶з</p>
-        </div>
-    </div>
-
     <script>
-        // 创建优化的玻璃破碎效果
-        function createGlassEffect() {
-            const container = document.getElementById('glass-effect-container');
-            const shardCount = 40; // 大幅减少玻璃碎片数量
+        // 为按钮添加点击反馈效果
+        document.getElementById('nexusButton').addEventListener('click', function(e) {
+            // 添加点击视觉效果
+            const button = e.currentTarget;
+            const originalText = button.textContent;
             
-            for (let i = 0; i < shardCount; i++) {
-                const shard = document.createElement('div');
-                shard.classList.add('glass-shard');
+            // 短暂改变文本表示跳转中
+            button.textContent = '信道建立中...';
+            button.style.animation = 'none'; // 暂停动画
+            
+            // 0.8秒后恢复文本（实际跳转会发生）
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.animation = 'gradientShift 8s ease infinite';
+            }, 800);
+            
+            // 允许默认的链接跳转行为
+            // 页面将跳转到指定网址
+        });
+        
+        // 添加动态背景粒子效果（可选增强）
+        window.addEventListener('DOMContentLoaded', function() {
+            // 创建粒子背景
+            const particleContainer = document.createElement('div');
+            particleContainer.style.position = 'fixed';
+            particleContainer.style.top = '0';
+            particleContainer.style.left = '0';
+            particleContainer.style.width = '100%';
+            particleContainer.style.height = '100%';
+            particleContainer.style.pointerEvents = 'none';
+            particleContainer.style.zIndex = '-1';
+            document.body.appendChild(particleContainer);
+            
+            // 生成粒子
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 3 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = 'rgba(100, 200, 255, 0.6)';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.boxShadow = '0 0 8px rgba(100, 200, 255, 0.8)';
+                particleContainer.appendChild(particle);
                 
-                // 随机大小
-                const size = Math.random() * 50 + 20;
-                shard.style.width = `${size}px`;
-                shard.style.height = `${size}px`;
-                
-                // 随机位置
-                shard.style.left = `${Math.random() * 100}%`;
-                shard.style.top = `${Math.random() * 100}%`;
-                
-                // 随机旋转
-                shard.style.transform = `rotate(${Math.random() * 360}deg)`;
-                
-                // 随机动画延迟
-                shard.style.animationDelay = `${Math.random() * 5}s`;
-                
-                // 设置简化动画
-                shard.style.animation = `floatShard ${20 + Math.random() * 20}s linear infinite`;
-                
-                container.appendChild(shard);
+                // 为粒子添加浮动动画
+                animateParticle(particle);
             }
             
-            // 添加简化的CSS动画关键帧
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes floatShard {
-                    0% {
-                        transform: translate(0, 0) rotate(0deg);
-                        opacity: 0.5;
-                    }
-                    50% {
-                        transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px) rotate(${Math.random() * 180}deg);
-                        opacity: 0.7;
-                    }
-                    100% {
-                        transform: translate(0, 0) rotate(360deg);
-                        opacity: 0.5;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        // 创建星空背景
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starsCount = 100; // 减少星星数量
-            
-            for (let i = 0; i < starsCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
+            function animateParticle(element) {
+                const startX = Math.random() * 100;
+                const startY = Math.random() * 100;
+                const amplitudeX = Math.random() * 10 + 5;
+                const amplitudeY = Math.random() * 10 + 5;
+                const period = Math.random() * 20000 + 15000;
+                let time = 0;
                 
-                // 随机大小
-                const size = Math.random() * 2;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                
-                // 随机位置
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                
-                // 随机闪烁延迟
-                star.style.animationDelay = `${Math.random() * 3}s`;
-                
-                starsContainer.appendChild(star);
-            }
-        }
-        
-        // 模拟启动进度
-        function simulateLoading() {
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-            const splashScreen = document.getElementById('splash-screen');
-            
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 8 + 2;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
+                function move() {
+                    time += 50;
+                    const x = startX + amplitudeX * Math.sin(time * 2 * Math.PI / period);
+                    const y = startY + amplitudeY * Math.cos(time * 2 * Math.PI / (period * 0.7));
                     
-                    // 隐藏启动页，显示政策弹窗
-                    setTimeout(() => {
-                        splashScreen.classList.add('fade-out');
-                        setTimeout(() => {
-                            splashScreen.style.display = 'none';
-                            document.getElementById('policy-modal').classList.add('active');
-                        }, 800);
-                    }, 500);
+                    element.style.left = x + '%';
+                    element.style.top = y + '%';
+                    
+                    requestAnimationFrame(move);
                 }
-                progressBar.style.width = `${progress}%`;
-                progressText.textContent = `${Math.round(progress)}%`;
-            }, 150);
-        }
-        
-        // 初始化政策弹窗
-        function initPolicyModal() {
-            const policyModal = document.getElementById('policy-modal');
-            const policyCheckbox = document.getElementById('policy-checkbox');
-            const policyConfirmBtn = document.getElementById('policy-confirm-btn');
-            const activityModal = document.getElementById('activity-modal');
-            
-            // 检查复选框状态
-            policyCheckbox.addEventListener('change', function() {
-                policyConfirmBtn.disabled = !this.checked;
-            });
-            
-            // 确认政策按钮
-            policyConfirmBtn.addEventListener('click', function() {
-                policyModal.classList.remove('active');
                 
-                // 显示活动通知弹窗
-                setTimeout(() => {
-                    activityModal.classList.add('active');
-                }, 300);
-            });
-        }
-        
-        // 初始化活动通知弹窗
-        function initActivityModal() {
-            const activityModal = document.getElementById('activity-modal');
-            const activityConfirmBtn = document.getElementById('activity-confirm-btn');
-            const mainContent = document.getElementById('main-content');
-            
-            // 确认活动通知按钮
-            activityConfirmBtn.addEventListener('click', function() {
-                activityModal.classList.remove('active');
-                
-                // 显示主内容
-                setTimeout(() => {
-                    mainContent.classList.add('show');
-                }, 300);
-            });
-        }
-        
-        // 初始化QQ群跳转功能
-        function initQQGroupJump() {
-            const joinBtn = document.getElementById('joinQQGroup');
-            
-            joinBtn.addEventListener('click', function(e) {
-                // 检查是否在移动设备上
-                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                
-                if (isMobile) {
-                    // 在移动设备上，让链接正常跳转
-                    return true;
-                } else {
-                    // 在PC上，显示提示
-                    e.preventDefault();
-                    alert("在PC端无法直接跳转到QQ，请手动添加QQ群：461528783");
-                }
-            });
-        }
-        
-        // 初始化按钮点击事件
-        function initButtonEvents() {
-            // 获取所有按钮
-            const buttons = [
-                { id: 'dragonIslandBtn', name: '龙岛异兽官网', url: 'https://www.longdaoyishou.com/' },
-                { id: 'giantIslandBtn', name: '巨兽岛官网', url: 'https://theislegame.com/' },
-                { id: 'stickerGeneratorBtn', name: '表情包生成器', url: 'http://m.webcats.cn/bx/135919/69810' },
-                { id: 'doubaoWatermarkBtn', name: '豆包视频去水印', url: 'http://m.webcats.cn/bx/135919/69813' },
-                { id: 'watermarkMakerBtn', name: '水印制作', url: 'http://m.webcats.cn/bx/135919/69814' },
-                { id: 'musicSelectBtn', name: '选择音乐', url: 'https://music.163.com/' }
-            ];
-            
-            // 为每个按钮添加点击事件
-            buttons.forEach(button => {
-                const btnElement = document.getElementById(button.id);
-                if (btnElement) {
-                    btnElement.addEventListener('click', function(e) {
-                        // 检查链接是否有效
-                        if (!button.url || button.url === '#' || button.url.includes('undefined')) {
-                            e.preventDefault();
-                            alert(`抱歉，${button.name}链接暂时不可用`);
-                            return;
-                        }
-                    });
-                }
-            });
-        }
-        
-        // 页面加载完成后初始化所有功能
-        document.addEventListener('DOMContentLoaded', () => {
-            // 创建玻璃破碎效果
-            createGlassEffect();
-            
-            // 创建星空背景
-            createStars();
-            
-            // 启动加载动画
-            simulateLoading();
-            
-            // 初始化弹窗
-            initPolicyModal();
-            initActivityModal();
-            
-            // 初始化QQ群跳转
-            initQQGroupJump();
-            
-            // 初始化其他按钮事件
-            initButtonEvents();
+                move();
+            }
         });
     </script>
 </body>
